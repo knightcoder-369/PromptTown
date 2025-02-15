@@ -7,7 +7,7 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-export async function middleware(req) {
+export async function middleware() {
   try {
     const { userId } = auth();
     

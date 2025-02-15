@@ -1,10 +1,10 @@
 'use client';
 import { useState } from "react";
 import Image from "next/image";
-import { useSession } from "@clerk/nextjs";
-import { usePathname,useRouter } from "next/navigation";
+// import { useSession } from "@clerk/nextjs";
+// import { usePathname,useRouter } from "next/navigation";
 
-const PromptCard = ({post,handleTagClick,handleEdit,handleDelete}) => {
+const PromptCard = ({post,handleTagClick}) => {
   const [copied,setCopied]=useState(" ");
   const handleCopy =() =>{
     setCopied(post.prompt);
