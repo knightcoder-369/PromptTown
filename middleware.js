@@ -1,6 +1,6 @@
 import { clerkMiddleware } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@supabase/supabase-js';
 
 export default clerkMiddleware(async (auth, req) => {
   const res = NextResponse.next();
@@ -15,13 +15,18 @@ export default clerkMiddleware(async (auth, req) => {
     );
   }
 
-  const supabase = createMiddlewareClient({ req, res }, { supabaseUrl, supabaseKey });
+  const supabase = createClient(supabaseUrl, supabaseKey);
 
-  if (auth.userId) {
-    await supabase.auth.setAuth({
-      token: req.cookies.get('__session')?.value,
-      type: 'bearer',
-    });
+  try {
+    if (auth.userId) {
+      const session = req.cookies.get('__session')?.value;
+      if (session) {
+        supabase.auth.setAuth(session);
+      }
+    }
+  } catch (error) {
+    console.error('Middleware error:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 
   return res;
