@@ -2,6 +2,7 @@ import '@styles/globals.css';
 import {dark} from '@clerk/themes';
 import Nav from '@components/Nav';
 import { ClerkLoaded, ClerkLoading, ClerkProvider } from '@clerk/nextjs';
+import AuthContext from '../context/AuthContext'
 
 export const metadata = {
   title: 'PromptTown',
@@ -12,7 +13,9 @@ const RootLayout = ({children}) => {
   return (
     <html lang='en'>
       <body>
+         
         <ClerkProvider appearance={{baseTheme: dark}}>
+           
           <div className="main">
             <div className="gradient" />
           </div>
@@ -27,6 +30,7 @@ const RootLayout = ({children}) => {
               {children}
             </ClerkLoaded>
           </main>
+          
         </ClerkProvider>
       </body>
     </html>
