@@ -40,6 +40,7 @@ const staticPrompts = [
 
 const PromptCard = ({ post = {}, handleTagClick }) => {
   const [copied, setCopied] = useState("");
+  const [imageError, setImageError] = useState(false)
 
   const handleCopy = () => {
     setCopied(post.prompt);
